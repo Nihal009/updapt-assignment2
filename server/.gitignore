@@ -1,0 +1,28 @@
+# Node.js dependencies and artifacts
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.development
+.env.production
+.env.local
+
+# Logs
+logs/
+*.log
+
+# Build artifacts and temporary files
+build/
+dist/
+tmp/
+coverage/
+.DS_Store
+Thumbs.db
+
+# IDE and OS specific files
+.vscode/
+.idea/
+*.swp
+*~
