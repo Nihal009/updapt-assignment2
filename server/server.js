@@ -3,8 +3,19 @@ const { default: mongoose } = require("mongoose");
 const TopicData = require("./models/topicdata.model");
 const app=express()
 
+const formidableMiddleware = require('express-formidable');
+
 const cors = require("cors");
 const MongoString="mongodb://localhost:27017/assignment2"
+
+
+
+app.use(formidableMiddleware({
+    uploadDir: './uploads',
+    multiples: true,
+    keepExtensions: true,
+    // req.files to be arrays of files
+  }));
 app.use(express.json())
 mongoose.connect(MongoString).then(()=>
     console.log("Db connected Successfully")).catch(()=>console.log("error connecting to db"))
@@ -82,6 +93,13 @@ app.delete('/api/deleteData/:id',async (req,res)=>{
     }
 })
 
+
+app.post('/api/bulk-upload/',async (req,res)=>{
+console.log("files",req.files)
+const originalName=req.files.file.name
+
+
+})
 
 
 app.listen(4000,()=>{

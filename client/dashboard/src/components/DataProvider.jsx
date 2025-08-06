@@ -8,8 +8,8 @@ function GlobalDataProvider({children}){
     const [ToggleCreate,setToggleCreate]=useState(false)
     const [ToggleEdit,setToggleEdit]=useState(false)
     const [Globaldata,setGlobaldata]=useState([])
-
-    return (<globalDataContext.Provider value={{Globaldata,setGlobaldata,ToggleCreate,setToggleCreate,ToggleEdit,setToggleEdit,isUpdated,setisUpdated,SearchChars,setSearchChars}}>
+    const [BulkuploadToggle,setBulkuploadToggle]=useState(false)
+    return (<globalDataContext.Provider value={{Globaldata,setGlobaldata,ToggleCreate,setToggleCreate,ToggleEdit,setToggleEdit,isUpdated,setisUpdated,SearchChars,setSearchChars,BulkuploadToggle,setBulkuploadToggle}}>
         {children}
         </globalDataContext.Provider>)
 

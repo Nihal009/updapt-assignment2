@@ -602,6 +602,12 @@ flex-grow: 1;
     flex-direction: row;
     justify-content:space-between;
     align-items: center;
+    border: 1px solid #e4e4e7;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    margin-top: 20px;
+    padding-top: 10px; 
     flex-wrap: wrap;
     width: 100%;
    

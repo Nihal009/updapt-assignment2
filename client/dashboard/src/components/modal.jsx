@@ -549,7 +549,7 @@ function handleSubtopicDelete(index){
               </div>
             </div>
           </div>
-          <hr style={{ color: "#e3e3e3", marginTop: "20px" }} />
+          {/* <hr style={{ color: "#e3e3e3", marginTop: "20px" }} /> */}
           <div className="create_form_bottom">
             
             {props.type=="create" &&

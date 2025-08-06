@@ -15,7 +15,7 @@ function Header(){
 
 
     
-    const [BulkuploadToggle,setBulkuploadToggle]=useState(false)
+    
 
     function handleBulkUpload(){
         setBulkuploadToggle(true)
@@ -23,7 +23,7 @@ function Header(){
     }
 
 
-    const {ToggleCreate,setToggleCreate}=useGlobalData()
+    const {ToggleCreate,setToggleCreate,BulkuploadToggle,setBulkuploadToggle}=useGlobalData()
     // const [ToggleState,setToggleState]=useState(false)
     // const[SelectedFrameworks,setSelectedFrameworks]=useState([])
     // const [ToggleCreate,setToggleCreate]=useState(false)
@@ -88,7 +88,7 @@ function Header(){
         </div>} */}
         {ToggleCreate && <Modal type="create"/>}
 
-        {/* {BulkuploadToggle && <BulkUpload/>} */}
+        {BulkuploadToggle && <BulkUpload/>}
         {/* {ToggleCreate && <div className='popup-overlay' style={{  "overflowY": "auto"}} onClick={()=>{
             setToggleCreate(false)
         }}>
