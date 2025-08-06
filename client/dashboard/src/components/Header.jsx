@@ -9,9 +9,20 @@ import '../css/create_pop.css'
 import { useState } from 'react';
 import { Modal } from './modal';
 import { useGlobalData } from './DataProvider';
+import BulkUpload from './BulkUpload';
 
 function Header(){
+
+
     
+    const [BulkuploadToggle,setBulkuploadToggle]=useState(false)
+
+    function handleBulkUpload(){
+        setBulkuploadToggle(true)
+
+    }
+
+
     const {ToggleCreate,setToggleCreate}=useGlobalData()
     // const [ToggleState,setToggleState]=useState(false)
     // const[SelectedFrameworks,setSelectedFrameworks]=useState([])
@@ -37,7 +48,7 @@ function Header(){
         <div className="left-side">
         <button className="button" id="other"><LuSlidersVertical />   Assessment Level: Subtopic</button>
         <button className="button" id="other" ><LuSettings /> Configure Frameworks</button>
-        <button className="button" id="other"><MdOutlineFileUpload /> Bulk Upload</button>
+        <button className="button" id="other" onClick={handleBulkUpload}><MdOutlineFileUpload /> Bulk Upload</button>
         <button className="create-button" id="create_topic" onClick={handleCreate}><LuPlus /> Create Topic</button>
         </div>
 
@@ -76,6 +87,8 @@ function Header(){
 
         </div>} */}
         {ToggleCreate && <Modal type="create"/>}
+
+        {/* {BulkuploadToggle && <BulkUpload/>} */}
         {/* {ToggleCreate && <div className='popup-overlay' style={{  "overflowY": "auto"}} onClick={()=>{
             setToggleCreate(false)
         }}>

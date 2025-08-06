@@ -106,6 +106,12 @@ setisUpdated(!isUpdated)
 }
 
 
+function removeEmpty(arr){
+  return arr.filter(obj=>{
+    
+  })
+}
+
 async function handleEdit(id) {
 console.log("edit_id",id)
   try{
@@ -180,20 +186,21 @@ function handleAddSubtopic(){
 }
 
 
-function handleRefDelete(id){
+function handleRefDelete(index){
   setReferences((prev)=>{
-    const updated=prev.filter((data)=>{
-      return data.id!==id
+    const updated=prev.filter((_,idx)=>{
+      return idx!==index;
     })
     return updated
   })
 // console.log("updated_ref",References)
 }
 
-function handleSubtopicDelete(id){
+function handleSubtopicDelete(index){
   setSubtopics((prev)=>{
-    const updated=prev.filter((data)=>{
-      return data.id!==id
+    const updated=prev.filter((_,idx)=>{
+      // return data.id!==id
+      return idx!=index;
     })
     return updated
   })
@@ -385,7 +392,7 @@ function handleSubtopicDelete(id){
                           </h3>
                         </div>
                         {References.length > 0 && (
-                          <div className="ref_cancel_button" onClick={()=>handleRefDelete(ref.id)}>
+                          <div className="ref_cancel_button" onClick={()=>handleRefDelete(index)}>
                             <button>
                               <LuX />
                             </button>
@@ -486,7 +493,7 @@ function handleSubtopicDelete(id){
                           <h3>Subtopic {index+ 1}</h3>
                         </div>
                         {Subtopics.length > 1 && (
-                          <div className="ref_cancel_button" onClick={()=>handleSubtopicDelete(topic.id)}>
+                          <div className="ref_cancel_button" onClick={()=>handleSubtopicDelete(index)}>
                             <button>
                               <LuX />
                             </button>

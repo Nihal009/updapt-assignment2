@@ -102,13 +102,19 @@ function Topic(props){
 
             </div>
             {ToggleExpand &&<div className='topic_expansion'>
+                {data.framework_ref.length>0&&
+                data.framework_ref.some((item)=>
+                    item.framework && item.ref_code
+            ) &&(
                 <div className='topic_expansion_top'>
                     <div><h4>Framework References</h4>
                     </div>
                     <div className='framework_badge_div'>
                     {
                 data.framework_ref.length>0&&
-                data.framework_ref.map((framework)=>{
+                data.framework_ref.filter((item)=>
+                    item.framework && item.ref_code
+            ).map((framework)=>{
                     // console.log(framework)
                     
                 
@@ -128,11 +134,15 @@ function Topic(props){
                     </div>)
                 })}
                     </div>
-                </div>
+                </div>)}
+
+
                 <div className='subtopics_display'>
                     <div className='subtopics_display_head'>
                         <div className='subtopics_count'>
-                        <h4>Subtopics ({data.subtopics.length})</h4>
+                        <h4>Subtopics ({
+                        data.subtopics.filter((item)=>item.subtopic_name && item.subtopic_code 
+                    ).length})</h4>
                         </div>
                         <div className='add_subtopic-button'>
                         <button>                       <LuPlus /> Add Subtopic
@@ -141,7 +151,9 @@ function Topic(props){
                     </div>
                     <div className='subtopics_content_container'> 
                     {data.subtopics.length>0&&
-                data.subtopics.map((subtopic)=>{
+                data.subtopics.filter((item)=>item.subtopic_name && item.subtopic_code 
+                )
+                .map((subtopic)=>{
 
                
                 return (
