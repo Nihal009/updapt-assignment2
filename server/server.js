@@ -7,15 +7,12 @@ const formidableMiddleware = require('express-formidable');
 
 const cors = require("cors");
 const MongoString="mongodb://localhost:27017/assignment2"
+const fs=require('fs');
+const { error } = require("console");
+const path= require('path');
+const ProcessData = require("./utils/processData.js");
 
-
-
-app.use(formidableMiddleware({
-    uploadDir: './uploads',
-    multiples: true,
-    keepExtensions: true,
-    // req.files to be arrays of files
-  }));
+;
 app.use(express.json())
 mongoose.connect(MongoString).then(()=>
     console.log("Db connected Successfully")).catch(()=>console.log("error connecting to db"))
@@ -34,7 +31,7 @@ app.get('/api/getData',async (req,res)=>{
         try{
             const data=await TopicData.find()
             res.status(200).json(data)
-            console.log(data)
+            // console.log(data)
         }
         catch(error){
             res.status(500).json({"message":error.message})
@@ -49,6 +46,7 @@ app.post('/api/addTopic',async (req,res)=>{
     try{
        
         const data=await TopicData.insertOne(req.body)
+        // console.log("add data:",req.body)
         res.status(200).json(data)
     }
     catch(error){
@@ -59,7 +57,7 @@ app.post('/api/addTopic',async (req,res)=>{
 
 app.put('/api/updateData/:id',async (req,res)=>{
     const _id=req.params.id
-    console.log("p_id",_id)
+    // console.log("p_id",_id)
     const updateData=req.body
     try{
         const data =await TopicData.findByIdAndUpdate(_id,updateData)
@@ -79,7 +77,7 @@ app.put('/api/updateData/:id',async (req,res)=>{
 app.delete('/api/deleteData/:id',async (req,res)=>{
     const _id=req.params.id;
     try{
-        const data=await TopicData.findOneAndDelete(_id)
+        const data=await TopicData.findOneAndDelete({_id})
         if(!data){
             return res.status(404).json({message:"Item not Found"})
         }
@@ -94,9 +92,47 @@ app.delete('/api/deleteData/:id',async (req,res)=>{
 })
 
 
-app.post('/api/bulk-upload/',async (req,res)=>{
-console.log("files",req.files)
-const originalName=req.files.file.name
+app.post('/api/bulk-upload/',formidableMiddleware({
+    uploadDir: './uploads',
+    multiples: true,
+    keepExtensions: true,
+    // req.files to be arrays of files
+  }), async (req,res)=>{
+
+    
+
+    const file=req.files.file
+    
+    if(!file){
+        res.status(400).json({message:"No file Uploaded"})
+    }
+
+    const name=file.name
+    const filepath=file.path
+if(file.type!=="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"){
+    fs.unlink(filepath,(err) => {
+        if (err) throw err;
+        console.log(`${filepath} was deleted`);
+    })
+    // console.log("")
+    res.status(415).json({message:"Invalid File Type"})    
+}
+else{
+    console.log(file)
+    const uploadDir=path.join(__dirname,'uploads')
+    const NewPath=path.join(uploadDir,name)
+    fs.rename(filepath,NewPath,(err) => {
+        if (err) throw err;
+        console.log(`${name} renamed successfully`);
+    })
+    const data=await ProcessData(NewPath)
+    const NewData=await TopicData.insertMany(data)
+
+    res.status(201).json({message:"File Uploaded Successfully"})
+}
+
+// const originalName=req.files.file.name
+
 
 
 })

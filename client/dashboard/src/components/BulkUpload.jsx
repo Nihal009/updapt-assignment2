@@ -33,8 +33,8 @@ async function handleSubmit(){
     catch(error){
         console.error("Error uploading File",error)
     }
-
-    
+    setisUpdated(!isUpdated)
+    setBulkuploadToggle(!BulkuploadToggle)
 
 }
 
@@ -92,7 +92,7 @@ setselectedFile(null)
 const [dragOver,setdragOver]=useState(false)
 const [selectedFile,setselectedFile]=useState(null)
 
-const {BulkuploadToggle,setBulkuploadToggle}=useGlobalData()
+const {BulkuploadToggle,setBulkuploadToggle,setisUpdated,isUpdated}=useGlobalData(null)
 
 
 
@@ -177,7 +177,7 @@ const {BulkuploadToggle,setBulkuploadToggle}=useGlobalData()
                         Drop your CSV file here, or click to browse 
                         </h3>
                         <p>Supports CSV files up to 10MB</p>
-                        <input type="file" name="" accept=".xlsx" hidden id="file-input" className="file-input" onChange={handleFileChange}/>
+                        <input type="file" name="" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden id="file-input" className="file-input" onChange={handleFileChange}/>
                         
                         <label htmlFor="file-input" type="button" className="cancel_file-upload_button">
                     

@@ -16,8 +16,10 @@ body{
 
 .card-container{
   display:  flex;
+  flex-direction: row;
   margin: 25px 0 25px 0;
   gap: 20px;
+  flex-wrap: wrap;
   /* flex-grow:1; */
   justify-content: flex-start;
   /* flex-direction: row; */
@@ -43,6 +45,7 @@ body{
   justify-content: space-evenly;
   /* padding: 1.5rem;  */
   margin: 1rem; 
+  /* flex-wrap: wrap; */
   
 
   
